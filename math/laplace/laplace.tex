@@ -1,0 +1,212 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+\begin{document}
+
+\begin{center}
+\LARGE{\textbf{Laplace Transforms - QE Equation Sheet}}
+\end{center}
+
+\vspace{10pt}
+
+\section*{Definition}
+
+The Laplace Transform and its inverse:
+$\mathcal{L}\{f(t)\} = F(s) = \int_0^\infty e^{-st} f(t) \, dt$
+
+$\mathcal{L}^{-1}\{F(s)\} = f(t)$
+
+\section*{Common Laplace Transforms}
+
+\begin{center}
+\begin{tabular}{c c}
+\toprule
+\textbf{Function } $f(t)$ & \textbf{Transform } $F(s) = \mathcal{L}\{f(t)\}$ \\
+\midrule
+$1$ & $\displaystyle\frac{1}{s}$ \\[8pt]
+$t$ & $\displaystyle\frac{1}{s^2}$ \\[8pt]
+$t^n$ & $\displaystyle\frac{n!}{s^{n+1}}$ \\[8pt]
+$e^{at}$ & $\displaystyle\frac{1}{s-a}$ \\[8pt]
+$t e^{at}$ & $\displaystyle\frac{1}{(s-a)^2}$ \\[8pt]
+$t^n e^{at}$ & $\displaystyle\frac{n!}{(s-a)^{n+1}}$ \\[8pt]
+$\sin(\omega t)$ & $\displaystyle\frac{\omega}{s^2 + \omega^2}$ \\[8pt]
+$\cos(\omega t)$ & $\displaystyle\frac{s}{s^2 + \omega^2}$ \\[8pt]
+$e^{at}\sin(\omega t)$ & $\displaystyle\frac{\omega}{(s-a)^2 + \omega^2}$ \\[8pt]
+$e^{at}\cos(\omega t)$ & $\displaystyle\frac{s-a}{(s-a)^2 + \omega^2}$ \\[8pt]
+$\sinh(\omega t)$ & $\displaystyle\frac{\omega}{s^2 - \omega^2}$ \\[8pt]
+$\cosh(\omega t)$ & $\displaystyle\frac{s}{s^2 - \omega^2}$ \\[8pt]
+$u(t-a)$ & $\displaystyle\frac{e^{-as}}{s}$ \\[8pt]
+$\delta(t)$ & $1$ \\[8pt]
+$\delta(t-a)$ & $e^{-as}$ \\[8pt]
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Properties of Laplace Transforms}
+
+\textbf{Linearity:}
+$\mathcal{L}\{af(t) + bg(t)\} = aF(s) + bG(s)$
+
+\textbf{First Derivative:}
+$\mathcal{L}\{f'(t)\} = sF(s) - f(0)$
+
+\textbf{Second Derivative:}
+$\mathcal{L}\{f''(t)\} = s^2F(s) - sf(0) - f'(0)$
+
+\textbf{$n$-th Derivative:}
+$\mathcal{L}\{f^{(n)}(t)\} = s^nF(s) - s^{n-1}f(0) - s^{n-2}f'(0) - \cdots - f^{(n-1)}(0)$
+
+\textbf{Integration:}
+$\mathcal{L}\left\{\int_0^t f(\tau) \, d\tau\right\} = \frac{F(s)}{s}$
+
+\textbf{Time Shift (Second Shifting Theorem):}
+$\mathcal{L}\{f(t-a)u(t-a)\} = e^{-as}F(s), \quad a \geq 0$
+$\mathcal{L}\{g(t)u(t-a)\} = e^{-as}\mathcal{L}\{g(t+a)\}$
+
+\textbf{Frequency Shift (s-Shift Theorem):}
+$\mathcal{L}\{e^{at}f(t)\} = F(s-a)$
+
+\textbf{Scaling:}
+$\mathcal{L}\{f(at)\} = \frac{1}{a}F\left(\frac{s}{a}\right), \quad a > 0$
+
+\textbf{Multiplication by $t$:}
+$\mathcal{L}\{t f(t)\} = -F'(s)$
+$\mathcal{L}\{t^n f(t)\} = (-1)^n F^{(n)}(s)$
+
+\textbf{Division by $t$:}
+$\mathcal{L}\left\{\frac{f(t)}{t}\right\} = \int_s^\infty F(\sigma) \, d\sigma$
+
+\section*{Convolution Theorem}
+
+\textbf{Convolution of two functions:}
+$(f * g)(t) = \int_0^t f(\tau)g(t-\tau) \, d\tau = \int_0^t f(t-\tau)g(\tau) \, d\tau$
+
+\textbf{Convolution Theorem:}
+$\mathcal{L}\{(f * g)(t)\} = F(s) \cdot G(s)$
+
+\textbf{Inverse form:}
+$\mathcal{L}^{-1}\{F(s) \cdot G(s)\} = (f * g)(t)$
+
+\section*{Initial and Final Value Theorems}
+
+\textbf{Initial Value Theorem:}
+$\lim_{t \to 0^+} f(t) = \lim_{s \to \infty} sF(s)$
+(provided the limit exists)
+
+\textbf{Final Value Theorem:}
+$\lim_{t \to \infty} f(t) = \lim_{s \to 0} sF(s)$
+(provided the limit exists and $f(t)$ has a final value; all poles of $sF(s)$ must have negative real parts except possibly a simple pole at $s=0$)
+
+\section*{Inverse Laplace Transforms}
+
+\textbf{Partial Fraction Decomposition:}
+
+For a rational function $\displaystyle\frac{P(s)}{Q(s)}$ where $\deg(P) < \deg(Q)$:
+
+\textbf{Case 1: Simple Real Roots}
+
+If $Q(s) = (s-a_1)(s-a_2)\cdots(s-a_n)$ with distinct roots:
+$\frac{P(s)}{Q(s)} = \frac{A_1}{s-a_1} + \frac{A_2}{s-a_2} + \cdots + \frac{A_n}{s-a_n}$
+
+\textbf{Case 2: Repeated Real Roots}
+
+If $Q(s)$ has $(s-a)^n$ as a factor:
+$\text{Include terms: } \frac{A_1}{s-a} + \frac{A_2}{(s-a)^2} + \cdots + \frac{A_n}{(s-a)^n}$
+
+\textbf{Case 3: Complex Conjugate Roots}
+
+If $Q(s)$ has a factor $(s-\alpha)^2 + \beta^2$:
+$\text{Include term: } \frac{As + B}{(s-\alpha)^2 + \beta^2}$
+
+\textbf{Heaviside Cover-Up Method:}
+
+For a simple root at $s = a$, the coefficient $A$ is:
+$A = \lim_{s \to a} (s-a)\frac{P(s)}{Q(s)}$
+
+Or equivalently, substitute $s=a$ into $\displaystyle\frac{P(s)}{Q(s)}$ after "covering up" the factor $(s-a)$ in $Q(s)$.
+
+\section*{Solving ODEs with Laplace Transforms}
+
+\textbf{General Procedure:}
+\begin{enumerate}
+\item Take the Laplace transform of both sides of the ODE
+\item Apply the derivative properties using the initial conditions
+\item Solve the resulting algebraic equation for $Y(s)$
+\item Use partial fractions to decompose $Y(s)$ if necessary
+\item Take the inverse Laplace transform to obtain $y(t)$
+\end{enumerate}
+
+\textbf{Example for second-order ODE:}
+
+Given: $y'' + ay' + by = f(t)$ with initial conditions $y(0)$ and $y'(0)$
+
+Taking Laplace transforms:
+$s^2Y(s) - sy(0) - y'(0) + a[sY(s) - y(0)] + bY(s) = F(s)$
+
+Solving for $Y(s)$:
+$Y(s) = \frac{F(s) + sy(0) + y'(0) + ay(0)}{s^2 + as + b}$
+
+\section*{Special Functions}
+
+\textbf{Unit Step Function (Heaviside Function):}
+$u(t-a) = \begin{cases} 0 & \text{if } t < a \\ 1 & \text{if } t \geq a \end{cases}$
+
+Used to "turn on" functions at time $t = a$
+
+\textbf{Dirac Delta Function (Unit Impulse):}
+$\delta(t-a) = 0 \text{ for all } t \neq a$
+$\int_{-\infty}^\infty \delta(t-a) \, dt = 1$
+
+\textbf{Sifting Property:}
+$\int_{-\infty}^\infty f(t)\delta(t-a) \, dt = f(a)$
+
+In ODEs, $\delta(t-a)$ represents an instantaneous impulse at $t=a$
+
+\section*{Solving Integral Equations}
+
+For equations of the form:
+$y(t) = f(t) + \int_0^t K(t-\tau)y(\tau) \, d\tau$
+
+\textbf{Solution Method:}
+\begin{enumerate}
+\item Take Laplace transform of both sides
+\item Use convolution theorem: $\mathcal{L}\{\text{integral term}\} = K(s)Y(s)$
+\item Obtain: $Y(s) = F(s) + K(s)Y(s)$
+\item Solve algebraically: $\displaystyle Y(s) = \frac{F(s)}{1 - K(s)}$
+\item Take inverse Laplace to find $y(t)$
+\end{enumerate}
+
+\section*{Useful Trigonometric Identities}
+
+$\sin^2(\omega t) = \frac{1 - \cos(2\omega t)}{2}$
+
+$\cos^2(\omega t) = \frac{1 + \cos(2\omega t)}{2}$
+
+$\sin(\omega t)\cos(\omega t) = \frac{\sin(2\omega t)}{2}$
+
+$\sin(A \pm B) = \sin A \cos B \pm \cos A \sin B$
+
+$\cos(A \pm B) = \cos A \cos B \mp \sin A \sin B$
+
+\section*{Common Partial Fraction Results}
+
+$\frac{1}{s(s+a)} = \frac{1}{a}\left(\frac{1}{s} - \frac{1}{s+a}\right)$
+
+$\frac{1}{(s+a)(s+b)} = \frac{1}{b-a}\left(\frac{1}{s+a} - \frac{1}{s+b}\right), \quad a \neq b$
+
+$\frac{s}{s^2 + \omega^2} \quad \xrightarrow{\mathcal{L}^{-1}} \quad \cos(\omega t)$
+
+$\frac{\omega}{s^2 + \omega^2} \quad \xrightarrow{\mathcal{L}^{-1}} \quad \sin(\omega t)$
+
+$\frac{1}{(s+a)^2} \quad \xrightarrow{\mathcal{L}^{-1}} \quad te^{-at}$
+
+$\frac{1}{s^2(s+a)} = \frac{1}{a^2}\left(\frac{1}{s} - \frac{1}{s+a}\right) - \frac{1}{a}\left(\frac{1}{s^2}\right)$
+
+\end{document}

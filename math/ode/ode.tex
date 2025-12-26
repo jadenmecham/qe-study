@@ -1,0 +1,252 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+\begin{document}
+
+\begin{center}
+\LARGE{\textbf{Ordinary Differential Equations - QE Equation Sheet}}
+\end{center}
+
+\vspace{10pt}
+
+\section*{Classification of ODEs}
+
+\textbf{Order:} Highest derivative present in the equation
+
+\textbf{Linearity:} An ODE is \textit{linear} if it can be written as:
+$$a_n(x)y^{(n)} + a_{n-1}(x)y^{(n-1)} + \cdots + a_1(x)y' + a_0(x)y = g(x)$$
+
+If $g(x) = 0$, the equation is \textit{homogeneous}; otherwise, it is \textit{non-homogeneous}.
+
+\section*{First-Order ODEs}
+
+\subsection*{Separable Equations}
+
+Form: $\displaystyle\frac{dy}{dx} = f(x)g(y)$
+
+\textbf{Solution Method:}
+$$\frac{dy}{g(y)} = f(x)dx$$
+$$\int \frac{dy}{g(y)} = \int f(x)dx + C$$
+
+\subsection*{Linear First-Order ODEs}
+
+Standard form: $\displaystyle\frac{dy}{dx} + P(x)y = Q(x)$
+
+\textbf{Integrating Factor Method:}
+$$\mu(x) = e^{\int P(x)dx}$$
+
+\textbf{General Solution:}
+$$y = \frac{1}{\mu(x)}\left[\int \mu(x)Q(x)dx + C\right]$$
+
+Or equivalently:
+$$\mu(x) \cdot y = \int \mu(x)Q(x)dx + C$$
+
+\subsection*{Exact Equations}
+
+Form: $M(x,y)dx + N(x,y)dy = 0$
+
+\textbf{Exactness Condition:}
+$$\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$$
+
+If exact, there exists a function $F(x,y)$ such that:
+$$\frac{\partial F}{\partial x} = M \quad \text{and} \quad \frac{\partial F}{\partial y} = N$$
+
+\textbf{Solution:} $F(x,y) = C$
+
+\textbf{Finding $F(x,y)$:}
+$$F(x,y) = \int M(x,y)dx + g(y)$$
+where $g(y)$ is determined by setting $\displaystyle\frac{\partial F}{\partial y} = N$
+
+\subsection*{Bernoulli Equations}
+
+Form: $\displaystyle\frac{dy}{dx} + P(x)y = Q(x)y^n$
+
+\textbf{Solution Method:} Substitute $v = y^{1-n}$ to transform into a linear ODE
+
+For $n \neq 0, 1$:
+$$\frac{dv}{dx} + (1-n)P(x)v = (1-n)Q(x)$$
+
+\section*{Second-Order Linear ODEs}
+
+General form: $a(x)y'' + b(x)y' + c(x)y = g(x)$
+
+Standard form: $y'' + p(x)y' + q(x)y = f(x)$
+
+\subsection*{Homogeneous Equations with Constant Coefficients}
+
+Form: $ay'' + by' + cy = 0$
+
+\textbf{Characteristic Equation:}
+$$ar^2 + br + c = 0$$
+
+\textbf{General Solution depends on the roots:}
+
+\textbf{Case 1: Two distinct real roots} $r_1, r_2$ $(b^2 - 4ac > 0)$:
+$$y(x) = c_1e^{r_1 x} + c_2e^{r_2 x}$$
+
+\textbf{Case 2: Repeated real root} $r$ $(b^2 - 4ac = 0)$:
+$$y(x) = (c_1 + c_2x)e^{rx}$$
+where $r = -\frac{b}{2a}$
+
+\textbf{Case 3: Complex conjugate roots} $r = \alpha \pm i\beta$ $(b^2 - 4ac < 0)$:
+$$y(x) = e^{\alpha x}(c_1\cos(\beta x) + c_2\sin(\beta x))$$
+where $\alpha = -\frac{b}{2a}$ and $\beta = \frac{\sqrt{4ac - b^2}}{2a}$
+
+\subsection*{Non-Homogeneous Equations: Method of Undetermined Coefficients}
+
+Form: $ay'' + by' + cy = g(x)$
+
+\textbf{General Solution:}
+$$y(x) = y_h(x) + y_p(x)$$
+where $y_h$ is the homogeneous solution and $y_p$ is a particular solution
+
+\textbf{Form of Particular Solution $y_p$:}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{If } $g(x)$ \textbf{ is:} & \textbf{Try } $y_p$: \\
+\midrule
+$P_n(x)$ (polynomial of degree $n$) & $x^s(A_nx^n + \cdots + A_1x + A_0)$ \\[4pt]
+$ke^{\alpha x}$ & $x^s Ae^{\alpha x}$ \\[4pt]
+$k\cos(\beta x)$ or $k\sin(\beta x)$ & $x^s(A\cos(\beta x) + B\sin(\beta x))$ \\[4pt]
+$e^{\alpha x}P_n(x)$ & $x^s e^{\alpha x}(A_nx^n + \cdots + A_0)$ \\[4pt]
+$e^{\alpha x}[P(x)\cos(\beta x) + Q(x)\sin(\beta x)]$ & $x^s e^{\alpha x}[(A_nx^n + \cdots)\cos(\beta x)$ \\
+& $\quad + (B_nx^n + \cdots)\sin(\beta x)]$ \\[4pt]
+\bottomrule
+\end{tabular}
+\end{center}
+
+where $s$ = multiplicity of the root in the characteristic equation (usually $s = 0, 1,$ or $2$)
+
+\subsection*{Variation of Parameters}
+
+For: $y'' + p(x)y' + q(x)y = f(x)$
+
+Given homogeneous solutions $y_1$ and $y_2$:
+
+\textbf{Particular Solution:}
+$$y_p = u_1(x)y_1(x) + u_2(x)y_2(x)$$
+
+where:
+$$u_1 = -\int \frac{y_2 f}{W} dx, \quad u_2 = \int \frac{y_1 f}{W} dx$$
+
+\textbf{Wronskian:}
+$$W = W(y_1, y_2) = \begin{vmatrix} y_1 & y_2 \\ y_1' & y_2' \end{vmatrix} = y_1y_2' - y_1'y_2$$
+
+\section*{Cauchy-Euler Equations}
+
+Form: $ax^2y'' + bxy' + cy = 0$
+
+\textbf{Trial Solution:} $y = x^r$
+
+\textbf{Characteristic Equation:}
+$$ar(r-1) + br + c = 0$$
+$$ar^2 + (b-a)r + c = 0$$
+
+\textbf{General Solution depends on roots:}
+
+\textbf{Case 1: Two distinct real roots} $r_1, r_2$:
+$$y(x) = c_1x^{r_1} + c_2x^{r_2}$$
+
+\textbf{Case 2: Repeated real root} $r$:
+$$y(x) = (c_1 + c_2\ln|x|)x^r$$
+
+\textbf{Case 3: Complex conjugate roots} $r = \alpha \pm i\beta$:
+$$y(x) = x^{\alpha}[c_1\cos(\beta\ln|x|) + c_2\sin(\beta\ln|x|)]$$
+
+\section*{Systems of First-Order Linear ODEs}
+
+Form: $\mathbf{x}' = A\mathbf{x}$ where $\mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}$ and $A$ is an $n \times n$ matrix
+
+\textbf{General Solution:}
+$$\mathbf{x}(t) = c_1\mathbf{v}_1e^{\lambda_1 t} + c_2\mathbf{v}_2e^{\lambda_2 t} + \cdots + c_n\mathbf{v}_ne^{\lambda_n t}$$
+
+where $\lambda_i$ are eigenvalues and $\mathbf{v}_i$ are corresponding eigenvectors of $A$
+
+\subsection*{Special Cases for 2×2 Systems}
+
+For $\mathbf{x}' = A\mathbf{x}$ with $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$:
+
+\textbf{Case 1: Two distinct real eigenvalues} $\lambda_1, \lambda_2$:
+$$\mathbf{x}(t) = c_1\mathbf{v}_1e^{\lambda_1 t} + c_2\mathbf{v}_2e^{\lambda_2 t}$$
+
+\textbf{Case 2: Repeated eigenvalue} $\lambda$:
+Find generalized eigenvector $\mathbf{w}$ satisfying $(A - \lambda I)\mathbf{w} = \mathbf{v}$
+$$\mathbf{x}(t) = c_1\mathbf{v}e^{\lambda t} + c_2(\mathbf{w}t + \mathbf{v})e^{\lambda t}$$
+
+\textbf{Case 3: Complex eigenvalues} $\lambda = \alpha \pm i\beta$:
+
+If $\lambda_1 = \alpha + i\beta$ has eigenvector $\mathbf{v} = \mathbf{a} + i\mathbf{b}$:
+$$\mathbf{x}(t) = c_1e^{\alpha t}[\mathbf{a}\cos(\beta t) - \mathbf{b}\sin(\beta t)] + c_2e^{\alpha t}[\mathbf{a}\sin(\beta t) + \mathbf{b}\cos(\beta t)]$$
+
+\section*{Higher-Order ODEs}
+
+An $n$-th order ODE can be converted to a system of first-order ODEs.
+
+For: $y^{(n)} = f(x, y, y', \ldots, y^{(n-1)})$
+
+\textbf{Define:} $x_1 = y, \, x_2 = y', \, x_3 = y'', \, \ldots, \, x_n = y^{(n-1)}$
+
+\textbf{System:}
+$$\begin{cases}
+x_1' = x_2 \\
+x_2' = x_3 \\
+\vdots \\
+x_{n-1}' = x_n \\
+x_n' = f(t, x_1, x_2, \ldots, x_n)
+\end{cases}$$
+
+\section*{Nonlinear Systems}
+
+\subsection*{Critical Points (Equilibrium Points)}
+
+For $\mathbf{x}' = \mathbf{f}(\mathbf{x})$, critical points satisfy $\mathbf{f}(\mathbf{x}^*) = \mathbf{0}$
+
+\subsection*{Linearization Near Critical Points}
+
+For a system $\mathbf{x}' = \mathbf{f}(\mathbf{x})$ near a critical point $\mathbf{x}^*$:
+
+\textbf{Jacobian Matrix:}
+$$J = \begin{bmatrix}
+\frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} \\
+\frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2}
+\end{bmatrix}_{\mathbf{x} = \mathbf{x}^*}$$
+
+The linearized system is: $\mathbf{u}' = J\mathbf{u}$ where $\mathbf{u} = \mathbf{x} - \mathbf{x}^*$
+
+\subsection*{Stability Classification (2D Systems)}
+
+Based on eigenvalues $\lambda_1, \lambda_2$ of Jacobian $J$:
+
+\begin{itemize}
+\item \textbf{Node (Stable):} Both $\lambda_i < 0$ (real)
+\item \textbf{Node (Unstable):} Both $\lambda_i > 0$ (real)
+\item \textbf{Saddle Point:} $\lambda_1 < 0 < \lambda_2$ (real, opposite signs) - Unstable
+\item \textbf{Spiral (Stable):} $\text{Re}(\lambda_i) < 0$ (complex)
+\item \textbf{Spiral (Unstable):} $\text{Re}(\lambda_i) > 0$ (complex)
+\item \textbf{Center:} $\text{Re}(\lambda_i) = 0$ (purely imaginary) - Neutrally stable
+\end{itemize}
+
+\section*{Useful Formulas}
+
+\textbf{Reduction of Order:}
+
+If $y_1$ is a known solution to $y'' + p(x)y' + q(x)y = 0$, then a second solution is:
+$$y_2(x) = y_1(x)\int \frac{e^{-\int p(x)dx}}{y_1^2(x)} dx$$
+
+\textbf{Abel's Formula (for Wronskian):}
+
+For $y'' + p(x)y' + q(x)y = 0$:
+$$W(x) = W(x_0)e^{-\int_{x_0}^x p(t)dt}$$
+
+\end{document}
