@@ -1,0 +1,336 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+\begin{document}
+
+\begin{center}
+\LARGE{\textbf{Partial Differential Equations}}
+\end{center}
+
+\vspace{10pt}
+
+\section*{Classification of PDEs}
+
+\textbf{General Second-Order Linear PDE:}
+$$A\frac{\partial^2 u}{\partial x^2} + B\frac{\partial^2 u}{\partial x \partial y} + C\frac{\partial^2 u}{\partial y^2} + D\frac{\partial u}{\partial x} + E\frac{\partial u}{\partial y} + Fu = G$$
+
+\textbf{Classification:}
+\begin{itemize}
+\item \textbf{Hyperbolic:} $B^2 - 4AC > 0$ (e.g., wave equation)
+\item \textbf{Parabolic:} $B^2 - 4AC = 0$ (e.g., heat equation)
+\item \textbf{Elliptic:} $B^2 - 4AC < 0$ (e.g., Laplace equation)
+\end{itemize}
+
+\section*{Three Fundamental PDEs}
+
+\subsection*{Wave Equation (Hyperbolic)}
+
+\textbf{1D Wave Equation:}
+$$\frac{\partial^2 u}{\partial t^2} = c^2\frac{\partial^2 u}{\partial x^2}$$
+
+where $c$ is the wave speed
+
+\textbf{2D Wave Equation:}
+$$\frac{\partial^2 u}{\partial t^2} = c^2\left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right) = c^2\nabla^2 u$$
+
+\textbf{3D Wave Equation:}
+$$\frac{\partial^2 u}{\partial t^2} = c^2\nabla^2 u$$
+
+\subsection*{Heat (Diffusion) Equation (Parabolic)}
+
+\textbf{1D Heat Equation:}
+$$\frac{\partial u}{\partial t} = \alpha\frac{\partial^2 u}{\partial x^2}$$
+
+where $\alpha = k/(\rho c_p)$ is the thermal diffusivity
+
+\textbf{2D Heat Equation:}
+$$\frac{\partial u}{\partial t} = \alpha\left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right) = \alpha\nabla^2 u$$
+
+\textbf{3D Heat Equation:}
+$$\frac{\partial u}{\partial t} = \alpha\nabla^2 u$$
+
+\subsection*{Laplace Equation (Elliptic)}
+
+\textbf{2D Laplace Equation:}
+$$\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0$$
+$$\nabla^2 u = 0$$
+
+\textbf{3D Laplace Equation:}
+$$\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} + \frac{\partial^2 u}{\partial z^2} = 0$$
+
+\textbf{Poisson Equation:}
+$$\nabla^2 u = f(x,y,z)$$
+
+Solutions to Laplace equation are called \textit{harmonic functions}.
+
+\section*{Method of Separation of Variables}
+
+\textbf{General Approach:}
+\begin{enumerate}
+\item Assume solution has the form $u(x,t) = X(x)T(t)$ (or similar)
+\item Substitute into PDE
+\item Separate variables to get two ODEs
+\item Solve each ODE with appropriate boundary conditions
+\item Apply superposition principle to satisfy initial conditions
+\end{enumerate}
+
+\subsection*{Heat Equation on Finite Domain}
+
+For: $\frac{\partial u}{\partial t} = \alpha\frac{\partial^2 u}{\partial x^2}$, $0 < x < L$, $t > 0$
+
+\textbf{Boundary Conditions (Fixed Ends):}
+$$u(0,t) = 0, \quad u(L,t) = 0$$
+
+\textbf{Initial Condition:}
+$$u(x,0) = f(x)$$
+
+\textbf{Solution:}
+$$u(x,t) = \sum_{n=1}^{\infty} B_n e^{-\alpha(n\pi/L)^2 t}\sin\left(\frac{n\pi x}{L}\right)$$
+
+where
+$$B_n = \frac{2}{L}\int_0^L f(x)\sin\left(\frac{n\pi x}{L}\right) dx$$
+
+\textbf{Boundary Conditions (Insulated Ends):}
+$$\frac{\partial u}{\partial x}(0,t) = 0, \quad \frac{\partial u}{\partial x}(L,t) = 0$$
+
+\textbf{Solution:}
+$$u(x,t) = \frac{A_0}{2} + \sum_{n=1}^{\infty} A_n e^{-\alpha(n\pi/L)^2 t}\cos\left(\frac{n\pi x}{L}\right)$$
+
+where
+$$A_n = \frac{2}{L}\int_0^L f(x)\cos\left(\frac{n\pi x}{L}\right) dx$$
+
+\subsection*{Wave Equation on Finite Domain}
+
+For: $\frac{\partial^2 u}{\partial t^2} = c^2\frac{\partial^2 u}{\partial x^2}$, $0 < x < L$, $t > 0$
+
+\textbf{Boundary Conditions:}
+$$u(0,t) = 0, \quad u(L,t) = 0$$
+
+\textbf{Initial Conditions:}
+$$u(x,0) = f(x), \quad \frac{\partial u}{\partial t}(x,0) = g(x)$$
+
+\textbf{Solution:}
+$$u(x,t) = \sum_{n=1}^{\infty}\left[A_n\cos\left(\frac{n\pi c t}{L}\right) + B_n\sin\left(\frac{n\pi c t}{L}\right)\right]\sin\left(\frac{n\pi x}{L}\right)$$
+
+where
+$$A_n = \frac{2}{L}\int_0^L f(x)\sin\left(\frac{n\pi x}{L}\right) dx$$
+
+$$B_n = \frac{2}{n\pi c}\int_0^L g(x)\sin\left(\frac{n\pi x}{L}\right) dx$$
+
+\section*{D'Alembert's Solution (Wave Equation)}
+
+For infinite domain: $\frac{\partial^2 u}{\partial t^2} = c^2\frac{\partial^2 u}{\partial x^2}$, $-\infty < x < \infty$
+
+\textbf{Initial Conditions:}
+$$u(x,0) = f(x), \quad \frac{\partial u}{\partial t}(x,0) = g(x)$$
+
+\textbf{D'Alembert's Solution:}
+$$u(x,t) = \frac{f(x-ct) + f(x+ct)}{2} + \frac{1}{2c}\int_{x-ct}^{x+ct} g(s) \, ds$$
+
+For zero initial velocity ($g(x) = 0$):
+$$u(x,t) = \frac{f(x-ct) + f(x+ct)}{2}$$
+
+This represents two waves traveling in opposite directions at speed $c$.
+
+\section*{Laplace Equation Solutions}
+
+\subsection*{Rectangular Domain}
+
+For: $\nabla^2 u = 0$ on rectangle $0 < x < a$, $0 < y < b$
+
+\textbf{Example Boundary Conditions:}
+$$u(0,y) = 0, \quad u(a,y) = 0, \quad u(x,0) = 0, \quad u(x,b) = f(x)$$
+
+\textbf{Solution:}
+$$u(x,y) = \sum_{n=1}^{\infty} B_n \frac{\sinh(n\pi y/a)}{\sinh(n\pi b/a)}\sin\left(\frac{n\pi x}{a}\right)$$
+
+where
+$$B_n = \frac{2}{a}\int_0^a f(x)\sin\left(\frac{n\pi x}{a}\right) dx$$
+
+\subsection*{Circular Domain (Polar Coordinates)}
+
+For: $\nabla^2 u = \frac{\partial^2 u}{\partial r^2} + \frac{1}{r}\frac{\partial u}{\partial r} + \frac{1}{r^2}\frac{\partial^2 u}{\partial \theta^2} = 0$
+
+On disk $r < R$ with boundary condition $u(R,\theta) = f(\theta)$:
+
+\textbf{Solution:}
+$$u(r,\theta) = \frac{a_0}{2} + \sum_{n=1}^{\infty}\left(\frac{r}{R}\right)^n[a_n\cos(n\theta) + b_n\sin(n\theta)]$$
+
+where
+$$a_n = \frac{1}{\pi}\int_0^{2\pi} f(\theta)\cos(n\theta) \, d\theta$$
+
+$$b_n = \frac{1}{\pi}\int_0^{2\pi} f(\theta)\sin(n\theta) \, d\theta$$
+
+\section*{2D Wave Equation (Rectangular Membrane)}
+
+For: $\frac{\partial^2 u}{\partial t^2} = c^2\left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right)$
+
+On rectangle $0 < x < a$, $0 < y < b$ with fixed boundaries:
+
+\textbf{Solution:}
+$$u(x,y,t) = \sum_{m=1}^{\infty}\sum_{n=1}^{\infty}\sin\left(\frac{m\pi x}{a}\right)\sin\left(\frac{n\pi y}{b}\right)$$
+$$\times\left[A_{mn}\cos(\omega_{mn}t) + B_{mn}\sin(\omega_{mn}t)\right]$$
+
+where the frequencies are:
+$$\omega_{mn} = \pi c\sqrt{\frac{m^2}{a^2} + \frac{n^2}{b^2}}$$
+
+\section*{Heat Equation in Infinite Rod}
+
+For: $\frac{\partial u}{\partial t} = \alpha\frac{\partial^2 u}{\partial x^2}$, $-\infty < x < \infty$, $t > 0$
+
+\textbf{Initial Condition:} $u(x,0) = f(x)$
+
+\textbf{Solution (using Fourier Transform):}
+$$u(x,t) = \frac{1}{\sqrt{4\pi\alpha t}}\int_{-\infty}^{\infty} f(\xi)e^{-(x-\xi)^2/(4\alpha t)} \, d\xi$$
+
+This is a convolution with the heat kernel (fundamental solution):
+$$K(x,t) = \frac{1}{\sqrt{4\pi\alpha t}}e^{-x^2/(4\alpha t)}$$
+
+\section*{Sturm-Liouville Problems}
+
+\textbf{General Form:}
+$$\frac{d}{dx}\left[p(x)\frac{dy}{dx}\right] + [q(x) + \lambda r(x)]y = 0$$
+
+with boundary conditions at endpoints
+
+\textbf{Properties:}
+\begin{itemize}
+\item Eigenvalues $\lambda_n$ are real
+\item Eigenfunctions $y_n(x)$ are orthogonal with weight function $r(x)$:
+$$\int_a^b y_m(x)y_n(x)r(x) \, dx = 0 \quad (m \neq n)$$
+\item Eigenfunctions form a complete basis
+\end{itemize}
+
+\textbf{Common Examples:}
+
+\textit{For heat/wave equation with fixed ends:}
+$$\frac{d^2 X}{dx^2} + \lambda X = 0, \quad X(0) = X(L) = 0$$
+$$\lambda_n = \left(\frac{n\pi}{L}\right)^2, \quad X_n(x) = \sin\left(\frac{n\pi x}{L}\right)$$
+
+\textit{For heat/wave equation with insulated ends:}
+$$\frac{d^2 X}{dx^2} + \lambda X = 0, \quad X'(0) = X'(L) = 0$$
+$$\lambda_n = \left(\frac{n\pi}{L}\right)^2, \quad X_n(x) = \cos\left(\frac{n\pi x}{L}\right)$$
+
+\section*{Maximum Principle}
+
+\textbf{For Heat Equation:}
+
+The maximum and minimum values of $u(x,t)$ in a domain occur either:
+\begin{itemize}
+\item At the initial time $t = 0$, or
+\item On the spatial boundary
+\end{itemize}
+
+\textbf{For Laplace Equation:}
+
+Harmonic functions achieve their maximum and minimum values on the boundary of the domain (no local extrema in the interior).
+
+\section*{Uniqueness and Well-Posedness}
+
+\textbf{Well-Posed Problem (Hadamard):}
+\begin{enumerate}
+\item Solution exists
+\item Solution is unique
+\item Solution depends continuously on initial/boundary data
+\end{enumerate}
+
+\textbf{Heat Equation:} Well-posed with initial condition and boundary conditions
+
+\textbf{Wave Equation:} Well-posed with initial position, initial velocity, and boundary conditions
+
+\textbf{Laplace Equation:} Well-posed with boundary conditions (Dirichlet, Neumann, or mixed)
+
+\section*{Boundary Conditions}
+
+\textbf{Dirichlet BC:} Specifies value of $u$ on boundary
+$$u|_{\partial\Omega} = f$$
+
+\textbf{Neumann BC:} Specifies normal derivative on boundary
+$$\frac{\partial u}{\partial n}\bigg|_{\partial\Omega} = g$$
+
+\textbf{Robin (Mixed) BC:} Linear combination
+$$\alpha u + \beta\frac{\partial u}{\partial n}\bigg|_{\partial\Omega} = h$$
+
+\textbf{Periodic BC:}
+$$u(0,t) = u(L,t), \quad \frac{\partial u}{\partial x}(0,t) = \frac{\partial u}{\partial x}(L,t)$$
+
+\section*{Bessel Functions}
+
+Arise in problems with cylindrical symmetry.
+
+\textbf{Bessel's Equation:}
+$$x^2\frac{d^2y}{dx^2} + x\frac{dy}{dx} + (x^2 - n^2)y = 0$$
+
+\textbf{General Solution:}
+$$y(x) = c_1 J_n(x) + c_2 Y_n(x)$$
+
+where $J_n(x)$ is Bessel function of the first kind and $Y_n(x)$ is Bessel function of the second kind.
+
+\textbf{Properties:}
+\begin{itemize}
+\item $J_n(0) = \begin{cases} 1 & n = 0 \\ 0 & n > 0 \end{cases}$
+\item $Y_n(x) \to -\infty$ as $x \to 0^+$
+\item $J_n(x)$ and $Y_n(x)$ oscillate with decreasing amplitude as $x \to \infty$
+\end{itemize}
+
+\textbf{Orthogonality:}
+$$\int_0^a x J_n(\alpha_m x)J_n(\alpha_k x) \, dx = 0 \quad (m \neq k)$$
+
+where $\alpha_m$ and $\alpha_k$ are zeros of $J_n$.
+
+\section*{Legendre Polynomials}
+
+Arise in problems with spherical symmetry.
+
+\textbf{Legendre's Equation:}
+$$(1-x^2)\frac{d^2y}{dx^2} - 2x\frac{dy}{dx} + n(n+1)y = 0$$
+
+\textbf{Solutions:} Legendre polynomials $P_n(x)$ for integer $n$
+
+\textbf{First Few Legendre Polynomials:}
+$$P_0(x) = 1$$
+$$P_1(x) = x$$
+$$P_2(x) = \frac{1}{2}(3x^2 - 1)$$
+$$P_3(x) = \frac{1}{2}(5x^3 - 3x)$$
+
+\textbf{Orthogonality:}
+$$\int_{-1}^{1} P_m(x)P_n(x) \, dx = \begin{cases} 0 & m \neq n \\ \frac{2}{2n+1} & m = n \end{cases}$$
+
+\section*{Green's Functions}
+
+Solution to PDE can be expressed using Green's function $G(\mathbf{x}, \mathbf{x}_0)$:
+
+For Poisson equation $\nabla^2 u = f$:
+$$u(\mathbf{x}) = \int_\Omega G(\mathbf{x}, \mathbf{x}_0)f(\mathbf{x}_0) \, d\mathbf{x}_0 + \text{boundary terms}$$
+
+\textbf{Green's Function satisfies:}
+$$\nabla^2 G(\mathbf{x}, \mathbf{x}_0) = \delta(\mathbf{x} - \mathbf{x}_0)$$
+
+\textbf{3D Free Space:}
+$$G(\mathbf{x}, \mathbf{x}_0) = -\frac{1}{4\pi|\mathbf{x} - \mathbf{x}_0|}$$
+
+\section*{Useful Formulas}
+
+\textbf{Energy Method (for uniqueness):}
+
+Define energy: $E(t) = \frac{1}{2}\int_\Omega u^2 \, dx$
+
+Show $\frac{dE}{dt} \leq 0$ to prove uniqueness.
+
+\textbf{Separation Constant:}
+
+When separating variables, if spatial part gives negative eigenvalues, use $-\lambda$ to get:
+$$X'' + \lambda X = 0$$
+
+This gives sinusoidal solutions for $\lambda > 0$.
+
+\end{document}
